@@ -1,13 +1,23 @@
 <template>
-  <div id="app">
-    <v-login></v-login>
-  </div>
+	<div id="app">
+		<router-view></router-view>
+	</div>
 </template>
 
 <script>
-import vLogin from "./components/login";
-export default {
-  name: "App",
-  components: { "v-login": vLogin }
-};
+	export default {
+		name: "App",
+		components: {}
+	};
 </script>
+
+<style lang="scss">
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+		Microsoft YaHei, SimSun, sans-serif;
+	font-size: 14px;
+	-webkit-font-smoothing: antialiased;
+}
+</style>
