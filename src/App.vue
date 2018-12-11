@@ -20,4 +20,10 @@ body {
 	font-size: 14px;
 	-webkit-font-smoothing: antialiased;
 }
+ul,
+li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
 </style>

@@ -5,12 +5,12 @@
 			<el-form ref="ruleForm2">
 				<h3 class="title">后台业务管理系统</h3>
 				<el-form-item>
-					<el-input type="text" placeholder="请输入用户名称" clearable>
-						<i slot="prefix" class="icon-yonghu2 icon"></i>
+					<el-input type="text" v-model="uname" placeholder="请输入用户名称" clearable>
+						<i slot="prefix" class="icon-yonghu2"></i>
 					</el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-input type="password" placeholder="请输入登录密码" clearable>
+					<el-input type="password" v-model="upwd" placeholder="请输入登录密码" clearable>
 						<i slot="prefix" class="icon-mima"></i>
 					</el-input>
 				</el-form-item>
@@ -23,6 +23,14 @@
 </template>
 
 <script>
+	export default {
+		data() {
+			return {
+				uname: "admin",
+				upwd: "123456"
+			};
+		}
+	};
 </script>
 <style lang="scss" scoped>
 .login {
