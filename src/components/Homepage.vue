@@ -2,7 +2,7 @@
 	<div class="homepage">
 		<div class="header">
 			<div class="title">系统首页</div>
-			<div class="refresh">刷新</div>
+			<div class="refresh" @click="refresh">刷新</div>
 		</div>
 		<div class="content">
 			<div class="part1">

@@ -41,7 +41,7 @@
 				</el-menu>
 			</div>
 			<div class="content">
-				<router-view></router-view>
+				<router-view :key="activeDate"></router-view>
 			</div>
 		</div>
 	</div>
@@ -51,6 +51,7 @@
 	export default {
 		data() {
 			return {
+				activeDate: "1",
 				nav: [
 					{
 						name: "首页",
