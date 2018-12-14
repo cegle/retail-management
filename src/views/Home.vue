@@ -16,7 +16,7 @@
 					<span>admin</span>
 				</div>
 				<i class="icon-shouye">
-					<router-link to="/home"></router-link>
+					<router-link to="/"></router-link>
 				</i>
 				<i class="icon-yujing"></i>
 				<i class="icon-exit"></i>
@@ -31,8 +31,12 @@
 					router
 				>
 					<el-menu-item-group>
-						<template slot="title" style="padding-left:0;">系统首页</template>
-						<el-menu-item v-for="(item,index) in menuList" :key="index" :index="item.path">{{item.name}}</el-menu-item>
+						<template slot="title">系统首页</template>
+						<el-menu-item
+							v-for="(item,index) in menuList"
+							:key="index"
+							:index="item.path"
+						>{{'• '+item.name}}</el-menu-item>
 					</el-menu-item-group>
 				</el-menu>
 			</div>
@@ -140,7 +144,7 @@ header {
 		}
 		.icon-shouye,
 		.icon-yujing {
-			margin: 10px 60px 0;
+			margin: 10px 40px 0;
 		}
 		.icon-shouye {
 			cursor: pointer;
@@ -167,31 +171,42 @@ header {
 		bottom: 0;
 		background-color: $aside-bg-color;
 		text-align: center;
+	}
+	.content {
+		width: 100%;
+		padding-left: 180px;
+		display: flex;
+		justify-content: center;
+	}
+}
+</style>
+<style lang="scss">
+.main {
+	.aside {
 		.el-menu {
 			.el-menu-item-group {
 				ul {
 					.el-menu-item {
 						height: 40px;
 						line-height: 40px;
-						font-size: 12px;
+						font-size: 14px;
+						border-top: 1px solid rgba(228, 228, 228, 1);
+						padding-left: 30px;
 					}
-					.el-menu-item:hover {
-						background-color: red;
+					.el-menu-item:hover,
+					.el-menu-item:focus {
+						// background-color: red;
 					}
 				}
 				.el-menu-item-group__title {
-					padding-left: 0;
-					font-size: 14px;
+					padding: 0 20px;
+					font-size: 16px;
+					height: 50px;
+					line-height: 50px;
+					background-color: rgba(242, 242, 242, 1);
 				}
 			}
 		}
-	}
-	.content {
-		width: 100%;
-		padding-left: 180px;
-		border: 1px solid red;
-		display: flex;
-		justify-content: center;
 	}
 }
 </style>
