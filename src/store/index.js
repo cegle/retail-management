@@ -4,10 +4,26 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state:{
-        activeNav:''
+  state: {
+    userInfo: localStorage.getItem("userInfo") || {},
+    activeNav: 'home'
+  },
+  getters: {
+    userInfo: state => state.userInfo,
+    activeNav: state => state.activeNav
+  },
+  mutations: {
+    SET_USERINFO(state, userInfo) {
+      state.userInfo = userInfo;
+      localStorage.setItem("userInfo", userInfo);
     },
-    getters:{},
-    mutations:{},
-    actions:{}
+    CLEAR_USERINFO(state) {
+      state.userInfo = {};
+      localStorage.removeItem("userInfo");
+    },
+    activeNav(state, module) {
+      state.activeNav = module;
+    }
+  },
+  actions: {}
 })
