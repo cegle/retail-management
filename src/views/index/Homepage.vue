@@ -193,16 +193,16 @@ export default {
           background-position: center center;
         }
         .left-icon1 {
-          background-image: url("../assets/images/u2462.png");
+          background-image: url("../../assets/images/u2462.png");
         }
         .left-icon2 {
-          background-image: url("../assets/images/u2501.png");
+          background-image: url("../../assets/images/u2501.png");
         }
         .left-icon3 {
-          background-image: url("../assets/images/u2590.png");
+          background-image: url("../../assets/images/u2590.png");
         }
         .left-icon4 {
-          background-image: url("../assets/images/u2452.png");
+          background-image: url("../../assets/images/u2452.png");
         }
         .right {
           width: 149px;

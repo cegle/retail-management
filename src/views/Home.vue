@@ -14,7 +14,7 @@
       <div class="flex-1">
         <div class="user">
           <i class="icon-yonghu2"></i>
-          <span>admin</span>
+          <span>{{userInfo.merchantName}}</span>
         </div>
         <i class="icon-shouye" title="回到首页" @click="linkIndex"></i>
         <i class="icon-yujing"></i>
@@ -26,16 +26,19 @@
         <el-menu
           background-color="#eaedf1"
           text-color="#666666"
+          :default-active="$route.path"
           active-text-color="rgba(26, 188, 156, 0.8)"
-          router="true"
+          :router="true"
           v-for="(item,index) in menu"
           :key="index"
         >
           <el-menu-item-group>
             <template slot="title">{{item.sub}}</template>
-            <el-menu-item v-for="(child,idx) in item.menu" :key="idx" :index="child.path">
-              <template slot="title">{{'• '+child.name}}</template>
-            </el-menu-item>
+            <el-menu-item
+              v-for="(child,idx) in (item.menu)"
+              :key="idx"
+              :index="child.path"
+            >{{'• '+child.name}}</el-menu-item>
           </el-menu-item-group>
         </el-menu>
       </div>
@@ -48,7 +51,7 @@
 
 <script>
 import nav from "../utils/nav.js";
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 export default {
   name: "home",
   computed: {
@@ -83,6 +86,9 @@ export default {
       )
       .then(res => {
         this.loginData = res.list;
+      })
+      .catch(err => {
+        console.log(err);
       });
   },
   methods: {
@@ -94,7 +100,7 @@ export default {
       this.$store.commit("CLEAR_USERINFO");
     },
     linkIndex() {
-      this.$route.push("/home");
+      this.$router.push("/home");
     }
   }
 };
@@ -127,6 +133,10 @@ header {
       text-align: center;
       cursor: pointer;
     }
+    .active {
+      background-color: #f2f2f2;
+      color: #ccc;
+    }
     .nav-item:hover {
       color: #ccc;
     }
@@ -151,6 +161,7 @@ header {
       }
       span {
         margin-top: 15px;
+        width: 50px;
       }
     }
     .icon-shouye,
@@ -204,9 +215,8 @@ header {
             border-top: 1px solid rgba(228, 228, 228, 1);
             padding-left: 30px;
           }
-          .el-menu-item:hover,
-          .el-menu-item:focus {
-            // background-color: red;
+          .el-menu-item.is-active {
+            background-color: white !important;
           }
         }
         .el-menu-item-group__title {

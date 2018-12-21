@@ -1,39 +1,47 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '../views/Login'
-import Home from '../views/Home'
-import Homepage from '../components/Homepage.vue'
-import Logs from '../components/Logs.vue'
-import Acount from '../components/Acount.vue'
-import System from '../components/System.vue'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [{
     path: '/',
-    component: Login
+    name: 'login',
+    component: () => import('../views/Login.vue')
   }, {
     path: '/home',
     name: 'home',
-    component: Home,
+    component: resolve => {
+      require(['../views/Home.vue'], resolve)
+    },
     redirect: '/home/homepage',
     children: [{
-        path: 'homepage',
+        path: '/home/homepage',
         name: 'homepage',
-        component: Homepage
+        component: resolve => {
+          require(['../views/index/Homepage.vue'], resolve)
+        }
       },
       {
-        path: 'logs',
-        component: Logs
+        path: '/home/logs',
+        name: 'logs',
+        component: resolve => {
+          require(['../views/index/Logs.vue'], resolve)
+        }
       },
       {
-        path: 'acount',
-        component: Acount
+        path: '/home/account',
+        name: 'account',
+        component: resolve => {
+          require(['../views/index/Account.vue'], resolve)
+        }
       },
       {
-        path: 'system',
-        component: System
+        path: '/home/system',
+        name: 'system',
+        component: resolve => {
+          require(['../views/index/System.vue'], resolve)
+        }
       }
 
     ]
