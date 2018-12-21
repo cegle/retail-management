@@ -6,11 +6,11 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     userInfo: localStorage.getItem('userInfo') || {},
-    activeNav: 'index',
+    activeNav: 'home'
   },
   getters: {
     userInfo: state => state.userInfo,
-    activeNav: state => state.activeNav,
+    activeNav: state => state.activeNav
   },
   mutations: {
     SET_USERINFO(state, userInfo) {

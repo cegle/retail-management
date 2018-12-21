@@ -26,7 +26,7 @@ router.beforeEach((to, from, next) => {
       router.replace('/');
     }
   } else {
-    let module = to.path.split('/')[1] ? to.path.split('/')[1] : 'index';
+    let module = to.path.split('/')[1] ? to.path.split('/')[1] : 'home';
     store.commit('ACTIVE_NAV', module);
     next();
   }

@@ -12,9 +12,20 @@
         >{{item.title}}</div>
       </div>
       <div class="flex-1">
+        <el-popover placement="bottom" width="360" ref="popover" trigger="hover">
+          <div class="popover">
+            <p class="title clearFix">
+              <span>登录信息</span>
+              <span class="fr" @click="$router.push('/home/account')">账户设置</span>
+            </p>
+            <p>• 本次登录：{{ loginData[0].operateTime }}</p>
+            <p>• 登录地区：广东省深圳市 (IP：{{ loginData[0].ip }})</p>
+            <p>• 上次登录：{{ loginData[1].operateTime }}</p>
+          </div>
+        </el-popover>
         <div class="user">
           <i class="icon-yonghu2"></i>
-          <span>{{userInfo.merchantName}}</span>
+          <span v-popover:popover>{{userInfo.merchantName}}</span>
         </div>
         <i class="icon-shouye" title="回到首页" @click="linkIndex"></i>
         <i class="icon-yujing"></i>
@@ -119,6 +130,7 @@ header {
   top: 0;
   left: 0;
   display: flex;
+  z-index: 1000;
   .logo {
     font-size: 36px;
     margin-left: 168px;
@@ -203,6 +215,22 @@ header {
 }
 </style>
 <style lang="scss">
+.popover {
+  padding-bottom: 20px;
+  .title {
+    padding: 10px;
+    border-bottom: 1px solid #dddddd;
+    .fr {
+      color: rgba(26, 188, 156, 0.8);
+      cursor: pointer;
+      float: right;
+    }
+  }
+  p:not(:first-child) {
+    font-size: 14px;
+    margin-top: 20px;
+  }
+}
 .main {
   .aside {
     .el-menu {

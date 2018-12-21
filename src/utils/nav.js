@@ -1,5 +1,5 @@
 export default {
-  index: {
+  home: {
     title: "首页",
     path: '/home/homepage',
     child: [{

@@ -1,9 +1,6 @@
 <template>
   <div class="homepage">
-    <div class="header">
-      <div class="title">系统首页</div>
-      <div class="refresh" @click="refresh">刷新</div>
-    </div>
+    <sub-title :subTitle="'系统首页'"></sub-title>
     <div class="content">
       <div class="part1">
         <el-row :gutter="20">
@@ -12,7 +9,7 @@
               <i class="left-icon1"></i>
               <div class="right">
                 <p class="words">今日订单总数</p>
-                <p class="num">200</p>
+                <p class="num">{{data.todayOrderNum}}</p>
               </div>
             </div>
           </el-col>
@@ -21,7 +18,7 @@
               <i class="left-icon2"></i>
               <div class="right">
                 <p class="words">今日销售总额</p>
-                <p class="num">¥5000.00</p>
+                <p class="num">{{"¥"+data.todayOrderMoney}}</p>
               </div>
             </div>
           </el-col>
@@ -30,7 +27,7 @@
               <i class="left-icon3"></i>
               <div class="right">
                 <p class="words">昨日销售总额</p>
-                <p class="num">¥5000.00</p>
+                <p class="num">{{"¥"+data.yesterdayOrderMoney}}</p>
               </div>
             </div>
           </el-col>
@@ -39,7 +36,7 @@
               <i class="left-icon4"></i>
               <div class="right">
                 <p class="words">近7天销售总额</p>
-                <p class="num">¥50000.00</p>
+                <p class="num">{{"¥"+data.nearlySevenDaysOrderMoney}}</p>
               </div>
             </div>
           </el-col>
@@ -52,28 +49,28 @@
             <p>待付款订单</p>
             <span>
               (
-              <span>10</span> )
+              <span>{{data.dfk}}</span> )
             </span>
           </div>
           <div>
             <p>已完成订单</p>
             <span>
               (
-              <span>10</span> )
+              <span>{{data.ywc}}</span> )
             </span>
           </div>
           <div>
             <p>待确认退货订单</p>
             <span>
               (
-              <span>10</span> )
+              <span>{{data.dqrth}}</span> )
             </span>
           </div>
           <div>
             <p>待发货订单</p>
             <span>
               (
-              <span>10</span> )
+              <span>{{data.dfh}}</span> )
             </span>
           </div>
           <div>
@@ -87,14 +84,14 @@
             <p>待处理退款申请</p>
             <span>
               (
-              <span>10</span> )
+              <span>{{data.dcltk}}</span> )
             </span>
           </div>
           <div>
             <p>已发货订单</p>
             <span>
               (
-              <span>10</span> )
+              <span>{{data.dsh}}</span> )
             </span>
           </div>
           <div>
@@ -108,27 +105,139 @@
             <p>广告位即将到期</p>
             <span>
               (
-              <span>10</span> )
+              <span>0</span> )
             </span>
           </div>
         </div>
       </div>
       <div class="part2 part3">
         <div class="title2">运营快捷入口</div>
+        <ul class="list">
+          <li
+            class="flex-1"
+            @click="linkUrl(item.path)"
+            v-for="(item,index) in entryList"
+            :key="index"
+          >
+            <img :src="item.icon" alt class="list-icon">
+            <p class>{{item.text}}</p>
+          </li>
+        </ul>
       </div>
-      <div class="part4"></div>
-      <div class="part5"></div>
-      <div class="part6"></div>
+      <div class="part2 part4">
+        <div class="p-left">
+          <div class="title2">商品总览</div>
+          <div class="prod">
+            <div>
+              <p class="num">{{ goodsData.notpull || 0 }}</p>
+              <p>已下架</p>
+            </div>
+            <div>
+              <p class="num">{{ goodsData.put || 0 }}</p>
+              <p>已上架</p>
+            </div>
+            <div>
+              <p class="num">{{ goodsData.all || 0 }}</p>
+              <p>全部商品</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-right">
+          <div class="title2">用户总览</div>
+          <div class="user">
+            <div>
+              <p class="num">{{ userData.yesterdayAddUserCount || 0 }}</p>
+              <p>昨日新增</p>
+            </div>
+            <div>
+              <p class="num">{{ userData.monthAddUserCount || 0 }}</p>
+              <p>本月新增</p>
+            </div>
+            <div>
+              <p class="num">{{ userData.allUserCount || 0 }}</p>
+              <p>会员总数</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import subTitle from "../../components/subTitle";
 export default {
+  name: "homepage",
+  components: { "sub-title": subTitle },
   data() {
-    return {};
+    return {
+      userData: {},
+      goodsData: {},
+      data: {
+        todayOrderNum: 0,
+        todayOrderMoney: 0,
+        yesterdayOrderMoney: 0,
+        nearlySevenDaysOrderMoney: 0
+      },
+      aUnpaid: 0, //待处理
+      complate: 0, //已完成
+      pending: 0, //待确认退货
+      back_orders: 0, //代发货
+      order: "",
+      all_wei: "", //待处理退款
+      all_shipped: "", //已发货
+      todayOrderNum: 0,
+      todayOrderMoney: 0,
+      yesterdayOrderMoney: 0,
+      nearlySevenDaysOrderMoney: 0,
+      goods: "",
+      entryList: [
+        {
+          icon: require("@/assets/index/icon-5.png"),
+          text: "添加商品",
+          path: "/goods/add"
+        },
+        {
+          icon: require("@/assets/index/icon-6.png"),
+          text: "订单列表",
+          path: "/order/list"
+        },
+        {
+          icon: require("@/assets/index/icon-7.png"),
+          text: "用户管理",
+          path: "/user/list"
+        },
+        {
+          icon: require("@/assets/index/icon-8.png"),
+          text: "交易统计",
+          path: "/statistics/deal"
+        },
+        {
+          icon: require("@/assets/index/icon-10.png"),
+          text: "广告管理",
+          path: "/operate/advertising"
+        }
+      ]
+    };
+  },
+  mounted() {
+    this.$http
+      .post("merchant_order/getOrderAllCount", {
+        merchantId: JSON.parse(this.$store.getters.userInfo).merchantId
+      })
+      .then(res => {
+        this.data = res;
+      });
+    this.$http.post("merchant/merchant_index").then(res => {
+      this.userData = res;
+    });
+    this.$http.post("merchantGoods/goodsCountStatistics").then(res => {
+      this.goodsData = res;
+    });
   },
   methods: {
-    refresh() {}
+    linkUrl(path) {
+      this.$router.push(path);
+    }
   }
 };
 </script>
@@ -137,39 +246,7 @@ export default {
 .homepage {
   // min-width: 1100px;
   width: 100%;
-  .header {
-    background-color: #f2f2f2;
-    height: 50px;
-    line-height: 50px;
-    color: #909399;
-    position: relative;
-    display: flex;
-    border-bottom: 1px solid rgba(228, 228, 228, 1);
-    .title {
-      min-width: 1100px;
-      border-left: 6px solid #5bc0bf;
-      line-height: 21px;
-      height: 21px;
-      padding-left: 10px;
-      position: relative;
-      top: 14px;
-    }
-    .refresh {
-      min-width: 80px;
-      height: 30px;
-      line-height: 30px;
-      border: 1px solid rgba(228, 228, 228, 1);
-      text-align: center;
-      position: relative;
-      top: 8px;
-      left: 100px;
-      background-color: #ffffff;
-      cursor: pointer;
-      &:hover {
-        background-color: #f2f2f2;
-      }
-    }
-  }
+
   .content {
     margin: 0 auto;
     width: 1060px;
@@ -272,6 +349,49 @@ export default {
     }
     .part3 {
       margin-top: 20px;
+      .list {
+        // padding: 20px 0 35px;
+        // border: 1px solid #b4b4b4;
+        // margin-bottom: 30px;
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        li:hover > p {
+          cursor: pointer;
+          color: #5ac2c0;
+        }
+        img {
+          display: block;
+          margin: 0 auto;
+        }
+      }
+    }
+    .part4 {
+      border: none;
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      .p-left,
+      .p-right {
+        width: 500px;
+        height: 160px;
+        border: 1px solid rgba(228, 228, 228, 1);
+        .prod,
+        .user {
+          display: flex;
+          justify-content: space-around;
+          margin-top: 35px;
+          font-size: 16px;
+          text-align: center;
+          div {
+            .num {
+              font-size: 18px;
+              color: #d23029;
+            }
+          }
+        }
+      }
     }
   }
 }
