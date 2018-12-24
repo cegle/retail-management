@@ -1,5 +1,5 @@
 <template>
-  <div class="acount">
+  <div class="account">
     <sub-title class="subTitle" :subTitle="'用户设置'"></sub-title>
     <div class="body">
       <div class="div-middle">
@@ -139,6 +139,7 @@ export default {
   left: 26px;
 }
 .account {
+  width: 100%;
   .body {
     // width: 100%;
     margin-top: 20px;
