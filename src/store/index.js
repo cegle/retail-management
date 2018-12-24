@@ -25,7 +25,5 @@ export default new Vuex.Store({
       state.activeNav = module;
     }
   },
-  actions: {
-
-  }
+  actions: {}
 })

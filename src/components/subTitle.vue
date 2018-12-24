@@ -16,6 +16,7 @@ export default {
 
 <style lang="scss" scoped>
 .subTitle {
+  width: 100%;
   background-color: #f2f2f2;
   height: 50px;
   line-height: 50px;
