@@ -103,7 +103,6 @@ export default {
         });
     },
     update(formName) {
-      console.log(this.$refs);
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$http
