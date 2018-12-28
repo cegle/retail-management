@@ -3,7 +3,7 @@
     <sub-title :subTitle="'登录日志'"></sub-title>
     <div class="body">
       <p>
-        <img src="@/assets/index/icon-6.png" alt>数据列表
+        <img src="../../assets/index/icon-6.png" alt>数据列表
       </p>
       <table class="table-middle">
         <thead>
@@ -32,13 +32,14 @@
 </template>
 <script>
 import subTitle from "../../components/subTitle";
-// import pagination from "@/components/pagination";
+import pagination from "../../components/pagination";
 // import mixin from "@/utils/mixin";
 // import axios from "axios";
 export default {
   name: "systemInfo",
   components: {
-    subTitle
+    subTitle,
+    pagination
   },
   data() {
     table: [];
