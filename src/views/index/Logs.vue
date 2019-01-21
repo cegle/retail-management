@@ -15,7 +15,7 @@
           </tr>
         </thead>
         <tbody id="didi-navigator">
-          <tr v-for="tab in table" align="center">
+          <tr v-for="(tab,index) in table" :key="index" align="center">
             <td>{{tab.operateTime}}</td>
             <td>{{tab.ip}}</td>
             <td

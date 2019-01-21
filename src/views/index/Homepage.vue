@@ -226,13 +226,20 @@ export default {
       })
       .then(res => {
         this.data = res;
-      });
-    this.$http.post("merchant/merchant_index").then(res => {
-      this.userData = res;
-    });
-    this.$http.post("merchantGoods/goodsCountStatistics").then(res => {
-      this.goodsData = res;
-    });
+      })
+      .catch(err => console.log(err));
+    this.$http
+      .post("merchant/merchant_index")
+      .then(res => {
+        this.userData = res;
+      })
+      .catch(err => console.log(err));
+    this.$http
+      .post("merchantGoods/goodsCountStatistics")
+      .then(res => {
+        this.goodsData = res;
+      })
+      .catch(err => console.log(err));
   },
   methods: {
     linkUrl(path) {
